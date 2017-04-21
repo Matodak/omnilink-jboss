@@ -5,6 +5,7 @@
 # to native line endings on checkout.
 *.java text
 *.xml text
+*.txt text
 *.rgs text
 
 # Declare files that will always have LF line endings on checkout.

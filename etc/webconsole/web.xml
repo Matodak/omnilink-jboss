@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+  <servlet>
+    <servlet-name>aegiswebconsole</servlet-name>
+    <servlet-class>Servlet</servlet-class>
+    <init-param>
+      <param-name>host</param-name>
+      <param-value>192.168.1.251</param-value>
+    </init-param>
+    <init-param>
+      <param-name>port</param-name>
+      <param-value>4369</param-value>
+    </init-param>
+    <init-param>
+      <param-name>private-key</param-name>
+      <param-value>48-CE-F5-A9-95-3E-78-16-05-13-17-E9-13-5D-1C-11</param-value>
+    </init-param>
+    <init-param>
+      <param-name>system-type</param-name>
+      <param-value>30</param-value>
+    </init-param>
+    <init-param>
+      <param-name>protocol-type</param-name>
+      <param-value>2</param-value>
+    </init-param>        
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>aegiswebconsole</servlet-name>
+    <url-pattern>/Servlet</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Uncomment to enable authentication
+  <security-constraint> 
+    <web-resource-collection>
+      <web-resource-name>aegiswebconsole</web-resource-name> 
+      <url-pattern>/Servlet</url-pattern>
+    </web-resource-collection> 
+    <auth-constraint>
+      <role-name>JBossAdmin</role-name> 
+    </auth-constraint>
+  </security-constraint> 
+  -->
+  
+  <login-config> 
+    <auth-method>BASIC</auth-method>
+    <realm-name>JBoss JMX Console</realm-name> 
+  </login-config>
+  
+  <security-role>
+    <role-name>JBossAdmin</role-name>
+  </security-role>
+</web-app>

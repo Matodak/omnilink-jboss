@@ -1,0 +1,1 @@
+255#"\Program Files\J9\FOUN10\bin\j9w.exe" "-jcl:foun10" "-cp" "\Program Files\Aegis\lib\aegisconsole.jar;\Program Files\Aegis\lib\omnilink.jar"  "AegisCommandReader" "\Program Files\Aegis\commandfiles\securitynight.txt" mleclerc.homeip.net 1199

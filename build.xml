@@ -1,0 +1,164 @@
+<?xml version='1.0'?>
+<project name="OmniLink Management Platform" default="compile" basedir=".">
+
+	<property name="jboss.dir" value=""/>
+	
+	<property name="src" value="${basedir}/src/main"/>
+  	<property name="build" value="${basedir}/build"/>
+  	<property name="classes" value="${build}/classes"/>	
+  	<property name="dist" value="${basedir}/dist"/>	
+  	<property name="lib" value="${basedir}/lib"/>
+  	<property name="jars" value="${build}/jars"/>	
+  	<property name="javadoc" value="${build}/javadoc"/>
+  	<property name="etc" value="${basedir}/etc"/>
+  	<property name="doc" value="${basedir}/doc"/>
+  	<property name="tmp" value="${build}/tmp"/>
+  
+	<path id="classpath">
+       	<fileset dir="${lib}"/>
+    </path>
+
+	<target name="compile">
+		<mkdir dir="${classes}"/>		
+    	<javac srcdir="${src}" destdir="${classes}" debug="true" classpathref="classpath"/>
+		<rmic base="${classes}" classname="client.ClientListener" classpathref="classpath"/>
+	 </target>
+
+  	<target name="jar" depends="compile">
+  		
+  		<mkdir dir="${jars}"/>
+    	<zip zipfile="${jars}/aegis-jmx.sar">
+    		<zipfileset dir="${etc}/service" prefix="META-INF">
+    			<include name="jboss-service.xml"/>
+    		</zipfileset>    		
+    		<zipfileset dir="${classes}" includesfile="${etc}/buildinfo/aegis-jmx.sar.txt"/>
+    		<zipfileset dir="${lib}">
+    			<include name="omnilink.jar"/>
+    		</zipfileset>    		
+    	</zip>
+    	<zip zipfile="${jars}/aegiswebconsole.war">
+    		<zipfileset dir="${etc}/webconsole" prefix="WEB-INF">
+    			<include name="web.xml"/>
+    			<include name="jboss-web.xml"/>
+    		</zipfileset>    		    		
+    		<zipfileset dir="${classes}" includesfile="${etc}/buildinfo/aegiswebconsole.war.txt" prefix="WEB-INF/classes"/>
+    		<zipfileset dir="${lib}" includes="omnilink.jar" prefix="WEB-INF/lib"/>
+    	</zip>  		
+  		<jar destfile="${jars}/client.jar" basedir="${classes}" includesfile="${etc}/buildinfo/client.jar.txt"/>
+  		<jar destfile="${jars}/aegisconsole.jar" basedir="${classes}" includesfile="${etc}/buildinfo/aegisconsole.jar.txt"/>
+  		
+  		<copy todir="${tmp}/aegiswebclient">
+  			<fileset dir="${lib}/client">
+  				<include name="*.jar"/>
+  			</fileset>
+  			<fileset dir="${lib}">
+  				<include name="omnilink.jar"/>  			
+  			</fileset> 	 				
+  			<fileset dir="${jars}">
+  				<include name="client.jar"/>  			
+  			</fileset> 	 				  			
+  			<fileset dir="${etc}/webclient">
+  				<include name="WebClient.jnlp"/>
+  				<include name="WebClient.html"/>
+  				<include name="index.html"/>
+  			</fileset>
+  		</copy>
+  		<copy todir="${tmp}/aegiswebclient/WEB-INF" file="${etc}/webclient/web.xml"/> 
+		<signjar keystore="${etc}/keystore/myKeystore" storepass="C1b2t3e4" alias="martin">
+  			<fileset dir="${tmp}/aegiswebclient">
+  				<include name="*.jar"/>
+  			</fileset>
+  		</signjar>
+  		
+  		<zip destfile="${jars}/aegiswebclient.war" basedir="${tmp}/aegiswebclient"/>
+  		
+  		<war warfile="${jars}/aegiswebservice.war" webxml="${etc}/webservice/web.xml">
+  			<classes dir="${classes}">
+  		        <include name="webservice/*.class"/>
+  				<include name="mbean/Utils.class"/>
+  			</classes>
+  		</war> 
+	</target>
+  
+	<target name="dist" depends="jar">
+		<copy todir="${dist}">
+			<fileset dir="${jars}">
+				<include name="aegis-jmx.sar"/>
+				<include name="aegiswebconsole.war"/>
+				<include name="aegiswebclient.war"/>				
+				<include name="aegisconsole.jar"/>
+				<include name="aegiswebservice.war"/>
+			</fileset>			
+		</copy>
+		
+		<copy todir="${dist}/scripts/lib">
+			<fileset dir="${lib}">
+				<include name="omnilink.jar"/>
+			</fileset>
+			<fileset dir="${jars}">
+				<include name="aegisconsole.jar"/>
+			</fileset>			
+		</copy>						
+		<copy todir="${dist}/scripts/commandfiles">
+			<fileset dir="${etc}/commandfiles"/>
+		</copy>				
+		<copy todir="${dist}/scripts">
+			<fileset dir="${etc}/scripts">
+				<include name="*.bat"/>
+				<include name="*.sh"/>
+			</fileset>
+		</copy>		
+		
+		<copy todir="${dist}/j2me/lib">
+			<fileset dir="${lib}">			
+				<include name="omnilink.jar"/>
+			</fileset>			
+			<fileset dir="${jars}">			
+				<include name="aegisconsole.jar"/>
+			</fileset>			
+		</copy>		
+		<copy todir="${dist}/j2me/commandfiles">
+			<fileset dir="${etc}/commandfiles"/>
+		</copy>						
+		<copy todir="${dist}/j2me">
+			<fileset dir="${etc}/scripts/j2me"/>
+		</copy>		
+	</target>
+
+	<target name="deploy" depends="dist">
+		<copy overwrite="true" todir="${jboss.dir}/server/default/deploy">
+			<fileset dir="${dist}">
+				<!--include name="aegis-jmx.sar"/-->
+				<include name="aegiswebconsole.war"/>
+				<!--include name="aegiswebclient.war"/-->
+				<!--include name="aegiswebservice.war"/-->
+			</fileset>
+			<fileset dir="${etc}/service">
+				<!--include name="mail-service.xml"/-->
+			</fileset>
+		</copy>			
+	</target>
+
+	<target name="javadoc" depends="compile">
+		<javadoc 
+            destdir="${javadoc}"
+			classpathref="classpath"
+            windowtitle="Aegis Javadoc">
+			<fileset dir="${src}"/>
+	 	</javadoc>
+  	</target>
+    
+ 	<target name="clean">
+    	<delete dir="${build}"/>
+		<delete dir="${dist}"/>
+ 		<!--delete file="${jboss.dir}/server/default/deploy/aegis-jmx.sar"/-->
+ 		<delete file="${jboss.dir}/server/default/deploy/aegiswebconsole.war"/>
+ 		<!--delete file="${jboss.dir}/server/default/deploy/aegiswebclient.war"/-->
+ 		<!--delete file="${jboss.dir}/server/default/deploy/aegiswebservice.war"/-->
+	</target>
+		
+	<target name="update-omnilink.jar">
+		<copy todir="${lib}" file="${basedir}/../omnilink/dist/omnilink/lib/omnilink.jar"/>
+	</target>
+
+</project>

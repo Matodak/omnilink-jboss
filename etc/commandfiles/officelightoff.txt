@@ -1,0 +1,4 @@
+open
+setunit 7 off
+close
+exit

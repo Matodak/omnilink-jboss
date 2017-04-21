@@ -1,0 +1,4 @@
+open
+setsecurity off
+close
+exit

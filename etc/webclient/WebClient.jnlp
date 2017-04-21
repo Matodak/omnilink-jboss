@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="http://mleclerc.homeip.net/aegiswebclient" href="WebClient.jnlp">
+  <information>
+    <title>Aegis Client GUI</title>
+    <vendor>Martin Leclerc</vendor>
+    <homepage href="WebClient.html" />
+    <description>Client application</description>
+  </information>
+  <security>
+    <all-permissions/>
+  </security>
+  <application-desc main-class="client.ClientMain">
+    <argument>mleclerc.homeip.net</argument>
+    <argument>1399</argument>
+    <argument>jmx/invoker/RMIAdaptor</argument>
+  </application-desc>
+  <resources>
+    <j2se version="1.4+"/>
+    <jar href="client.jar"/>
+    <jar href="omnilink.jar"/>
+    <jar href="jmx-invoker-adaptor-client.jar"/>
+    <jar href="jnp-client.jar"/>
+    <jar href="jboss-logging-spi.jar"/>
+    <jar href="jboss-client.jar"/>
+    <jar href="jboss-serialization.jar"/>
+    <jar href="jboss-common-core.jar"/>
+    <jar href="jboss-remoting.jar"/>
+    <jar href="jboss-javaee.jar"/>
+    <jar href="jboss-security-spi.jar"/>
+    <jar href="jboss-integration.jar"/>
+  </resources>
+</jnlp>

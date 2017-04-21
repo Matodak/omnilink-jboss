@@ -1,0 +1,35 @@
+<server>
+  <mbean code="javax.management.timer.Timer" name="jboss:service=Timer"/>
+  
+  <mbean code="mbean.EventForwarding" name="Aegis:name=event.forwarder"/>
+
+  <mbean code="mbean.Communication" name="Aegis:name=communication">
+    <!--attribute name="RmiRegistryHost">basement</attribute-->
+    <attribute name="RmiRegistryPort">1199</attribute>
+    <attribute name="SystemType">30</attribute>    
+    <attribute name="RmiServicePort">1200</attribute>        
+    <!--attribute name="CommPort">/dev/ttyS0</attribute-->
+    <!--attribute name="CommPort">COM1</attribute-->    
+    <!--attribute name="BaudRate">9600</attribute-->
+    <attribute name="NetworkIpAddress">192.168.1.251</attribute>
+    <attribute name="NetworkPort">4369</attribute>
+    <attribute name="EncryptionKey">48-CE-F5-A9-95-3E-78-16-05-13-17-E9-13-5D-1C-11</attribute>
+    <depends>Aegis:name=event.forwarder</depends>
+  </mbean>
+
+  <mbean code="mbean.EmailChecking" name="Aegis:name=email.checker">
+    <attribute name="UpdatePeriod">30</attribute>
+    <attribute name="EmailFrom">leclercm@rogers.com</attribute>
+    <attribute name="EmailTo">leclercm@rogers.com</attribute>
+    <attribute name="FromAddresses"></attribute>
+    <attribute name="ControlTitle">Aegis</attribute>
+    <depends>jboss:service=Mail</depends>
+  </mbean>
+
+  <mbean code="mbean.Controller" name="Aegis:name=controller">
+    <attribute name="UpdatePeriod">1</attribute>
+    <attribute name="LoginCode"></attribute>
+    <attribute name="FirstHouseCode">E</attribute>
+    <depends>Aegis:name=email.checker</depends>
+  </mbean>
+</server>

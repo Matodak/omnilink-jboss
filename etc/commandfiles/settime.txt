@@ -1,0 +1,4 @@
+open
+settime
+close
+exit

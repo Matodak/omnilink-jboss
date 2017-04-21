@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="lib/omnilink.jar" sourcepath="/omnilink/src/main"/>
+	<classpathentry kind="lib" path="lib/mail.jar"/>
+	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-system.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-system-jmx.jar"/>
+	<classpathentry kind="lib" path="lib/client/jboss-j2se.jar"/>
+	<classpathentry kind="lib" path="lib/jboss-kernel.jar"/>
+	<classpathentry kind="lib" path="lib/client/jmx-invoker-adaptor-client.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,4 @@
+open
+setsecurity night
+close
+exit
