@@ -11,9 +11,9 @@
     <!--attribute name="CommPort">/dev/ttyS0</attribute-->
     <!--attribute name="CommPort">COM1</attribute-->    
     <!--attribute name="BaudRate">9600</attribute-->
-    <attribute name="NetworkIpAddress">192.168.1.251</attribute>
+    <attribute name="NetworkIpAddress">192.168.1.3</attribute>
     <attribute name="NetworkPort">4369</attribute>
-    <attribute name="EncryptionKey">48-CE-F5-A9-95-3E-78-16-05-13-17-E9-13-5D-1C-11</attribute>
+    <attribute name="EncryptionKey">a0-b1-c2-d3-e4-f5-a6-b7-c8-d9-e0-f1-a2-b3-c4-d5</attribute>
     <depends>Aegis:name=event.forwarder</depends>
   </mbean>
 
