@@ -19,7 +19,7 @@
         <property name="mail.transport.protocol" value="smtp"/>
 
         <!-- Change to the user who will receive mail  -->
-        <property name="mail.user" value="leclercm"/>
+        <property name="mail.user" value="user"/>
 
         <!-- Change to the mail server  -->
         <property name="mail.pop3.host" value="mail.domain"/>
