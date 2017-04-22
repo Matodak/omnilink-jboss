@@ -19,8 +19,8 @@
 
   <mbean code="mbean.EmailChecking" name="Aegis:name=email.checker">
     <attribute name="UpdatePeriod">30</attribute>
-    <attribute name="EmailFrom">leclercm@rogers.com</attribute>
-    <attribute name="EmailTo">leclercm@rogers.com</attribute>
+    <attribute name="EmailFrom">user@domain</attribute>
+    <attribute name="EmailTo">user@domain</attribute>
     <attribute name="FromAddresses"></attribute>
     <attribute name="ControlTitle">Aegis</attribute>
     <depends>jboss:service=Mail</depends>
